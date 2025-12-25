@@ -116,3 +116,75 @@
   cursor: pointer;
   font-weight: bold;
 }
+.products {
+  padding: 60px 40px;
+}
+.products h2 {
+  font-size: 48px;
+  font-style: italic;
+  margin-bottom: 40px;
+}
+.grid{
+    display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 25px;
+}
+.card{
+    text-align: center;
+  font-family: Arial, sans-serif;
+}
+.img-box{
+    position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.img-box img{
+width: 100%;
+  height: 330px;
+  object-fit: cover;
+}
+.heart {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 22px;
+  cursor:pointer;
+}
+  .tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  border: 2px solid hotpink;
+  color: hotpink;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.card h3{
+     margin: 14px 0 6px;
+  font-weight: 500;
+}
+
+.rating {
+  font-size: 14px;
+  color: #000;
+}
+
+.rating span {
+  color: #777;
+  margin-left: 6px;
+}
+.price {
+  margin-top: 6px;
+}
+
+.new {
+  color: hotpink;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.old {
+  text-decoration: line-through;
+  color: #777;
+}
