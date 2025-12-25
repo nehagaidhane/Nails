@@ -1,0 +1,792 @@
+!(function () {
+  document.addEventListener("DOMContentLoaded", m),
+    document.addEventListener("scroll", function t() {
+      H();
+    }),
+    window.addEventListener("resize", function t() {
+      A(), H();
+    });
+  let t = !1,
+    e,
+    a,
+    r,
+    n,
+    o,
+    c,
+    i,
+    s,
+    l,
+    d,
+    u,
+    p,
+    v,
+    f;
+  async function m() {
+    if (!tvarkaSharedData.isProductPage && !tvarkaSharedData.isHomePage) {
+      T();
+      return;
+    }
+    if ((await D(), tvarkaSharedData.isHomePage)) {
+      let a = await V(n?.productIdForHomePage);
+      if (!a) {
+        T();
+        return;
+      }
+      !(function t() {
+        let e = document.getElementById("tvarka-satc-product-title");
+        e &&
+          tvarkaSharedData.productTitle &&
+          (e.innerText = tvarkaSharedData.productTitle);
+        let a = document.getElementById("tvarka-satc-title-option-container");
+        if (
+          a &&
+          tvarkaSharedData.options &&
+          tvarkaSharedData.options.length > 0 &&
+          "Default Title" !== tvarkaSharedData.options[0].values[0]
+        ) {
+          let r = document.createElement("div");
+          if (
+            ((r.id = "tvarka-satc-option-container"),
+            (r.className =
+              "tvarka-satc__option-container tvarka-satc__u-flex-row"),
+            tvarkaSharedData.options[0])
+          ) {
+            let n = R(
+              "tvarka-satc-option-one-selector",
+              tvarkaSharedData.options[0],
+              tvarkaSharedData.productVariants,
+              0,
+              tvarkaSharedData.selectedOrFirstAvailableVariantId
+            );
+            r.appendChild(n);
+          }
+          if (tvarkaSharedData.options[1]) {
+            let o = R(
+              "tvarka-satc-option-two-selector",
+              tvarkaSharedData.options[1],
+              tvarkaSharedData.productVariants,
+              1,
+              tvarkaSharedData.selectedOrFirstAvailableVariantId,
+              !0
+            );
+            r.appendChild(o);
+          }
+          a.appendChild(r);
+        }
+      })();
+    }
+    !(function a() {
+      var o;
+      if (!t) {
+        T();
+        return;
+      }
+      (function t() {
+        if (n.shouldPlaceWidgetAtPageTop) return;
+        let e = document.querySelector("inbox-online-store-chat");
+        if (!e) return;
+        let a = e.getBoundingClientRect(),
+          r = window.innerHeight,
+          o = r - a.bottom;
+        !(o >= 130) && (e.style.bottom = "130px");
+      })(),
+        (function t() {
+          let e = new MutationObserver(() => {
+            let t = location.href;
+            c !== t &&
+              ((c = t),
+              (function t() {
+                let e = (function t(e, a) {
+                  let r = new URL(e),
+                    n = new URLSearchParams(r.searchParams);
+                  return n.get(a);
+                })(c, "variant");
+                e && b(Number(e));
+              })());
+          });
+          e.observe(document.querySelector("body"), {
+            childList: !0,
+            subtree: !0,
+          });
+        })(),
+        (s = document.querySelector(".product-form__buttons")),
+        (l = document.querySelector('[name="add"]')),
+        (d = document.getElementById("ATC_n9_qBreaks")),
+        (p = document.getElementById("tvarka-satc-add-to-cart-button")),
+        (v = document.getElementById("tvarka-satc-option-one-selector")),
+        (f = document.getElementById("tvarka-satc-option-two-selector")),
+        (o = document.documentElement.style).setProperty(
+          "--tvarka-button-bg-color",
+          e.buttonBackgroundHex
+        ),
+        o.setProperty("--tvarka-button-fg-color", e.buttonTextHex),
+        o.setProperty(
+          "--tvarka-button-border-radius",
+          e.buttonCornerRadiusPx + "px"
+        ),
+        o.setProperty(
+          "--tvarka-button-hover-bg-color",
+          e.buttonOnHoverBackgroundHex
+        ),
+        o.setProperty("--tvarka-button-hover-fg-color", e.buttonOnHoverTextHex),
+        o.setProperty(
+          "--tvarka-button-oos-bg-color",
+          e.buttonOutOfStockBackgroundHex
+        ),
+        o.setProperty(
+          "--tvarka-button-oos-fg-color",
+          e.buttonOutOfStockTextHex
+        ),
+        o.setProperty(
+          "--tvarka-button-oos-border-radius",
+          e.buttonOutOfStockCornerRadiusPx + "px"
+        ),
+        o.setProperty(
+          "--tvarka-card-bg-color",
+          j(e.cardBackgroundHex, e.cardBackgroundAlpha)
+        ),
+        o.setProperty("--tvarka-card-fg-color", e.cardTextHex),
+        o.setProperty(
+          "--tvarka-card-border-color",
+          j(e.cardBorderHex, e.cardBackgroundAlpha)
+        ),
+        o.setProperty("--tvarka-price-fg-color", e.priceTextColorHex),
+        o.setProperty(
+          "--tvarka-compare-at-price-fg-color",
+          e.compareAtPriceTextColorHex
+        ),
+        o.setProperty(
+          "--tvarka-quantity-selector-bg-color",
+          e.quantitySelectorBackgroundHex
+        ),
+        o.setProperty(
+          "--tvarka-quantity-selector-fg-color",
+          e.quantitySelectorTextHex
+        ),
+        o.setProperty(
+          "--tvarka-quantity-selector-border-color",
+          e.quantitySelectorBorderHex
+        ),
+        o.setProperty(
+          "--tvarka-quantity-selector-corner-radius",
+          e.quantitySelectorCornerRadiusPx + "px"
+        ),
+        n.shouldPlaceWidgetAtPageTop &&
+          (o.setProperty("--tvarka-notification-container-order", 2),
+          o.setProperty("--tvarka-main-container-order", 1)),
+        n.shouldShowOnDesktop ||
+          o.setProperty("--tvarka-widget-desktop-display", "none"),
+        n.shouldShowOnMobile ||
+          o.setProperty("--tvarka-widget-mobile-display", "none"),
+        (function t() {
+          r.shouldDisplayProductPrice ||
+            (document.getElementById("tvarka-satc-product-price")?.remove(),
+            document
+              .getElementById("tvarka-satc-product-price-discounted")
+              ?.remove(),
+            document.getElementById("tvarka-satc-pricing-layout")?.remove()),
+            r.shouldDisplayProductPhoto ||
+              document.getElementById("tvarka-satc-product-image")?.remove(),
+            r.shouldDisplayProductTitle ||
+              document.getElementById("tvarka-satc-product-title")?.remove(),
+            r.shouldDisplayQuantitySelector ||
+              document
+                .getElementById("tvarka-satc-quantity-selector")
+                ?.remove();
+          let e = v && r.shouldShowOption1,
+            a = f && r.shouldShowOption2;
+          e || v?.remove(),
+            a || f?.remove(),
+            e ||
+              a ||
+              document.getElementById("tvarka-satc-option-container")?.remove(),
+            !e &&
+              a &&
+              f?.classList.remove("tvarka-satc__option-selector--spaced");
+          let n = document.getElementById("tvarka-satc-title-option-container");
+          n?.childElementCount === 0 && n?.remove();
+          let o = document.getElementById("tvarka-satc-product-info-container");
+          o?.childElementCount === 0 && o?.remove();
+          let c = document.getElementById("tvarka-satc-pricing-container");
+          c?.childElementCount === 0 && c?.remove();
+        })(),
+        (function t() {
+          let a = document.querySelectorAll(".tvarka-satc__option-selector");
+          g(a, e.cardTextHex);
+        })(),
+        (function t() {
+          let a = document.querySelectorAll(".tvarka-satc__quantity-selector");
+          g(a, e.quantitySelectorTextHex);
+        })(),
+        (function t() {
+          let e = document.getElementById("tvarka-satc-main-container"),
+            a = document.getElementById("tvarka-satc-add-to-cart-button");
+          if (!e || !a) return;
+          let r = document.getElementById("tvarka-satc-quantity-selector"),
+            n = document.getElementById("tvarka-satc-product-info-container"),
+            o = document.getElementById("tvarka-satc-title-option-container"),
+            c = document.getElementById("tvarka-satc-pricing-container");
+          if (!n && !c) {
+            e.classList.add("tvarka-satc__main-container--no-info-area"),
+              a.classList.add("large");
+            return;
+          }
+          if (r && !n) {
+            e.classList.add("tvarka-satc__main-container--no-info-area"),
+              c?.classList.add("tvarka-satc__pricing-container--row");
+            return;
+          }
+          if (r && !o) {
+            e.classList.add("tvarka-satc__main-container--full-row-cta-area"),
+              c?.classList.add("tvarka-satc__pricing-container--row");
+            return;
+          }
+          if (r) {
+            e.classList.add("tvarka-satc__main-container--full-row-cta-area");
+            return;
+          }
+          if (!n && c) {
+            e.classList.add("tvarka-satc__main-container--no-info-area"),
+              c?.classList.add("tvarka-satc__pricing-container--row");
+            return;
+          }
+          if (!n) {
+            e.classList.add("tvarka-satc__main-container--full-row-cta-area");
+            return;
+          }
+          c || e.classList.add("tvarka-satc__main-container--no-pricing-area");
+        })(),
+        (function t() {
+          if (!n.shouldPlaceWidgetAtPageTop) return;
+          let e = document.getElementById("tvarka-satc-widget"),
+            a = document.getElementById("tvarka-satc-main-container");
+          e &&
+            a &&
+            (e.classList.remove("tvarka-satc__u-bottom-0"),
+            e.classList.add("tvarka-satc__u-top-0"),
+            a.classList.remove("tvarka-satc__u-border-top"),
+            a.classList.add("tvarka-satc__u-border-bottom"));
+        })(),
+        E(),
+        y(v),
+        y(f),
+        A(),
+        b(tvarkaSharedData.selectedOrFirstAvailableVariantId),
+        p?.addEventListener("click", x),
+        H();
+    })();
+  }
+  function g(t, e) {
+    if (!t || 0 === t.length) return;
+    let a = e.replace("#", ""),
+      r = `<svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 0.5L6 5.5L11 0.5" stroke="#${a}" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+      n = encodeURIComponent(r),
+      o = `data:image/svg+xml;charset=utf-8,${n}`;
+    for (var c = 0; c < t.length; c++)
+      t[c].style.backgroundImage = `url('${o}')`;
+  }
+  function y(t) {
+    t?.addEventListener("change", A), t?.addEventListener("change", h);
+  }
+  function k() {
+    let t = tvarkaSharedData.productVariants.find((t) => t.id === i);
+    return t || tvarkaSharedData.productVariants[0];
+  }
+  function h() {
+    let t = (function t() {
+        let e = v ? v.value : null,
+          a = f ? f.value : null,
+          r = tvarkaSharedData.productVariants.find((t) => {
+            let r = !e || t.option1 === e,
+              n = !a || t.option2 === a;
+            return r && n;
+          });
+        return r;
+      })(),
+      e = t?.id;
+    if (!e) {
+      $({ available: !1 });
+      return;
+    }
+    (i = e), E();
+  }
+  function b(t) {
+    if (!t) return;
+    i = t;
+    let e = k();
+    e && (w(v, e.option1), w(f, e.option2), A(), E());
+  }
+  function w(t, e) {
+    t && e && (t.value = e);
+  }
+  function E() {
+    let t = k();
+    if (!t) return;
+    let e = t.featured_image,
+      a = e ? e.src : tvarkaSharedData.defaultProductImage,
+      n = document.getElementById("tvarka-satc-product-image");
+    n && (n.src = a),
+      (function t(e) {
+        if (!e) return;
+        let a = document.getElementById("tvarka-satc-product-price"),
+          n = document.getElementById("tvarka-satc-product-price-discounted");
+        if (!a || !n) return;
+        let o = e.compare_at_price,
+          c = e.price;
+        o && r.shouldDisplayProductCompareAtPrice && o !== c
+          ? (I(a, o),
+            I(n, c),
+            a.classList.add("tvarka-satc__product-price--before-discount"),
+            n.classList.remove("tvarka-satc__u-display-none"))
+          : (I(a, c),
+            I(n, c),
+            a.classList.remove("tvarka-satc__product-price--before-discount"),
+            n.classList.add("tvarka-satc__u-display-none"));
+      })(t),
+      $(t);
+  }
+  function I(t, e) {
+    t.textContent = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: tvarkaSharedData.currencyIsoCode,
+    }).format(e / 100);
+  }
+  function $(t) {
+    if (!t) return;
+    let e = document.getElementById("tvarka-satc-add-to-cart-button-text");
+    if (e) {
+      if (t.available) {
+        (e.innerText = a.buttonText), (p.disabled = !1);
+        return;
+      }
+      (e.innerText = a.buttonOutOfStockText), (p.disabled = !0);
+    }
+  }
+  async function x() {
+    B(!0), await P(), B(!1);
+  }
+  async function P() {
+    var t;
+    let e = k();
+    if (e && !e.available) {
+      q("Something went wrong", !0);
+      return;
+    }
+    let n = e?.id;
+    if (!n) {
+      q("Something went wrong", !0);
+      return;
+    }
+    let c =
+        document.querySelector("cart-notification") ||
+        document.querySelector("cart-drawer"),
+      i =
+        "function" == typeof c?.getSectionsToRender
+          ? c.getSectionsToRender()?.map((t) => t.id) ?? []
+          : [],
+      s = (function t() {
+        let e = document.getElementById("tvarka-satc-quantity-selector");
+        if (!e) return 1;
+        let a = parseInt(e.value, 10);
+        return isNaN(a) ? 1 : a;
+      })(),
+      l = await S(
+        n,
+        s,
+        i,
+        (function t() {
+          var e = document.querySelector(
+            'input[name="properties[Estimated date]"]'
+          );
+          let a = {};
+          return (
+            e && "" !== e.value.trim() && (a["Estimated date"] = e.value),
+            o?.isConversionTrackingOn &&
+              (a._tvarka_sticky_add_to_cart = "true"),
+            a
+          );
+        })()
+      );
+    if (l.errorMessage) {
+      q(l.errorMessage, !0);
+      return;
+    }
+    if (
+      (await M(e, s), r.shouldRedirectToCartPage && tvarkaSharedData.cartUrl)
+    ) {
+      window.location.href = tvarkaSharedData.cartUrl;
+      return;
+    }
+    if (r.shouldRedirectToCheckoutPage) {
+      window.location.href = "/checkout";
+      return;
+    }
+    await L(c, l.cartLineItemsJson),
+      (t = l.cartLineItemsJson),
+      document.dispatchEvent(
+        new CustomEvent("ajaxProduct:added", { detail: { product: t } })
+      ),
+      await C(),
+      q(a.successfullyAddedToCartNotificationText, !1),
+      (function t() {
+        try {
+          document.getElementById("cd-ops-drawKkoP")?.click();
+        } catch {}
+        try {
+          window.monster_refresh();
+        } catch (e) {}
+        try {
+          window?.opusOpen?.();
+        } catch (a) {}
+      })();
+  }
+  function B(t) {
+    let e = document.getElementById("tvarka-satc-add-to-cart-button-text"),
+      a = document.getElementById("tvarka-satc-add-to-cart-button-loader");
+    if (e && a && p) {
+      if (t) {
+        p.classList.add("tvarka-satc__button-primary--loading"),
+          e.classList.add("tvarka-satc__u-hidden"),
+          a.classList.remove("tvarka-satc__u-collapse");
+        return;
+      }
+      p.classList.remove("tvarka-satc__button-primary--loading"),
+        e.classList.remove("tvarka-satc__u-hidden"),
+        a.classList.add("tvarka-satc__u-collapse");
+    }
+  }
+  async function S(t, e, a, r) {
+    let n = { id: t, quantity: e };
+    r && Object.keys(r).length > 0 && (n.properties = r);
+    var o = JSON.stringify({ items: [n], sections: a ?? [] });
+    try {
+      let c =
+          Shopify?.routes?.root ??
+          (tvarkaSharedData.localeIsoCode && !tvarkaSharedData.isPrimaryLocale
+            ? `/${tvarkaSharedData.localeIsoCode}/`
+            : "/"),
+        i = await fetch(c + "cart/add.js", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: o,
+        }),
+        s = await i.json();
+      if (i.ok) return { cartLineItemsJson: s };
+      return { errorMessage: s.description };
+    } catch (l) {
+      return { errorMessage: "Something went wrong" };
+    }
+  }
+  async function L(t, e) {
+    if (!t) {
+      await _();
+      return;
+    }
+    let a = {};
+    Object.assign(a, e.items[0]), Object.assign(a, { sections: e.sections });
+    try {
+      t.renderContents(a), t.classList.remove("is-empty");
+    } catch {}
+    !(function t() {
+      try {
+        let e = document.getElementById("CartDrawer");
+        if (e) {
+          trapFocus(e, e);
+          return;
+        }
+        let a = document.getElementById("cart-notification");
+        a && trapFocus(a, a);
+      } catch {}
+    })();
+  }
+  async function C() {
+    document.dispatchEvent(new CustomEvent("cart:refresh")),
+      document.dispatchEvent(new CustomEvent("variant:add")),
+      document.body.dispatchEvent(new Event("added", { bubbles: !0 })),
+      document.dispatchEvent(
+        new CustomEvent("product:added", {
+          bubbles: !0,
+          detail: { variant: {}, quantity: 0 },
+        })
+      ),
+      document.documentElement.dispatchEvent(
+        new CustomEvent("theme:cartchanged", {
+          bubbles: !0,
+          cancelable: !1,
+          detail: { openDrawer: !0 },
+        })
+      ),
+      document.dispatchEvent(new CustomEvent("dispatch:cart-drawer:refresh")),
+      document.dispatchEvent(new CustomEvent("dispatch:cart-drawer:open"));
+    try {
+      let t = await fetch(`${Shopify.routes.root}cart.js`),
+        e = await t.json();
+      e.sections || (e.sections = []),
+        document.dispatchEvent(
+          new CustomEvent("cart:change", { bubbles: !0, detail: { cart: e } })
+        ),
+        document.dispatchEvent(
+          new CustomEvent("theme:cart:change", {
+            detail: { cart: e },
+            bubbles: !0,
+          })
+        ),
+        window.dispatchEvent(
+          new CustomEvent("cartcount:update", { detail: e })
+        );
+    } catch {}
+  }
+  async function _() {
+    try {
+      var t;
+      let e = await fetch("/cart.js"),
+        a = await e.json(),
+        r;
+      (t = a.item_count),
+        (r = !1),
+        [
+          ".cart-count",
+          ".cart-count-bubble",
+          "[data-cart-count]",
+          "#CartCount",
+          ".js-cart-count",
+          ".header__cart-count",
+        ].forEach((e) => {
+          let a = document.querySelectorAll(e);
+          a.forEach((e) => {
+            (e.textContent = t), (r = !0);
+          });
+        }),
+        !r &&
+          t > 0 &&
+          [
+            ".cart-icon",
+            "[data-cart-icon]",
+            "#CartIcon",
+            ".cart-icon-bubble",
+            "#cart-icon-bubble",
+          ].forEach((e) => {
+            let a = document.querySelector(e);
+            if (a) {
+              let r = document.createElement("div");
+              r.classList.add("cart-count-bubble"),
+                (r.textContent = t),
+                a.appendChild(r);
+            }
+          });
+    } catch (n) {}
+  }
+  function T() {
+    document.getElementById("tvarka-satc-widget")?.remove();
+  }
+  function q(t, e) {
+    let a = document.getElementById("tvarka-satc-notification-container");
+    if (!a) return;
+    let r = document.getElementById("tvarka-satc-notification-image");
+    if (r) {
+      let n = e
+        ? tvarkaSharedData.errorIconSrc
+        : tvarkaSharedData.successIconSrc;
+      r.src = n;
+    }
+    let o = document.getElementById("tvarka-satc-notification-text");
+    a.classList.add("tvarka-satc__u-opacity-0"), (o.innerText = t);
+    let c = e
+        ? "tvarka-satc__notification-container__error"
+        : "tvarka-satc__notification-container__success",
+      i = e
+        ? "tvarka-satc__notification-container__success"
+        : "tvarka-satc__notification-container__error";
+    clearTimeout(u),
+      setTimeout(function () {
+        a.classList.remove(i),
+          a.classList.add(c),
+          a.classList.remove("tvarka-satc__u-opacity-0");
+      }, 200),
+      (u = setTimeout(function () {
+        a.classList.add("tvarka-satc__u-opacity-0");
+      }, 6200));
+  }
+  function H() {
+    let e = document.getElementById("tvarka-satc-widget");
+    if (e) {
+      if (
+        (function e() {
+          if (!t) return !0;
+          if (!n.shouldShowAfterScrollPercentage) {
+            if (d) return O(d);
+            if (s) return O(s);
+            if (l) return O(l);
+          }
+          let a = n.showAfterScrollPercentage;
+          (null == a || a < 0) && (a = 15);
+          let r = window.pageYOffset || document.documentElement.scrollTop,
+            o = window.innerHeight,
+            c = document.documentElement.scrollHeight;
+          return (r / (c - o)) * 100 < a;
+        })()
+      ) {
+        e.classList.add("tvarka-satc__u-collapse");
+        return;
+      }
+      e.classList.remove("tvarka-satc__u-collapse");
+    }
+  }
+  function O(t) {
+    let e = t.getBoundingClientRect();
+    return e.bottom > 0;
+  }
+  function A() {
+    let t = document.querySelector(".tvarka-satc__title-option-container");
+    if (!t) return;
+    let e = Array.from(t.querySelectorAll("select"));
+    if (0 === e.length) return;
+    let a = new Map();
+    e.forEach((t) => {
+      a.set(
+        t,
+        (function t(e) {
+          let a = document.createElement("select");
+          a.classList.add(
+            "tvarka-satc__selector",
+            "tvarka-satc__option-selector",
+            "tvarka-satc__u-cursor-pointer",
+            "tvakra-satc__u-inherit-font-family"
+          );
+          let r =
+            document.getElementById("tvarka-satc-option-container") ??
+            document.body;
+          (a.style.whiteSpace = ""),
+            (a.style.overflow = ""),
+            (a.style.textOverflow = ""),
+            (a.style.width = "auto");
+          let n = document.createElement("option");
+          (n.textContent = e.text),
+            (n.style.visibility = "hidden"),
+            (n.style.whiteSpace = "nowrap"),
+            (n.innerText = e.text),
+            a.appendChild(n),
+            r.appendChild(a);
+          let o = a.offsetWidth;
+          return a.remove(), o + 20;
+        })(t.options[t.selectedIndex])
+      );
+    }),
+      (a = new Map(Array.from(a.entries()).sort((t, e) => t[1] - e[1])));
+    let r =
+      e.length > 1
+        ? (function t(e) {
+            let a = window.getComputedStyle(e);
+            return parseFloat(a.marginLeft);
+          })(e[1]) *
+          (e.length - 1)
+        : 0;
+    var n =
+      ((function t(e) {
+        let a = window.getComputedStyle(e);
+        return parseFloat(a.width);
+      })(t) -
+        r) *
+      0.98;
+    let o = Array.from(a.values()).reduce((t, e) => t + e, 0),
+      c = 0.1 * n,
+      i = n,
+      s = n / o;
+    a.forEach((t, e) => {
+      let a = t;
+      s < 1 && (a = Math.max(a * s, c)),
+        i < a && (a = i),
+        (e.style.width = a + "px"),
+        (i -= a);
+    });
+  }
+  function j(t, e) {
+    var a = parseInt(t.slice(1, 3), 16),
+      r = parseInt(t.slice(3, 5), 16),
+      n = parseInt(t.slice(5, 7), 16);
+    return void 0 !== e
+      ? "rgba(" + a + ", " + r + ", " + n + ", " + e + ")"
+      : "rgb(" + a + ", " + r + ", " + n + ")";
+  }
+  async function D() {
+    let c = new URLSearchParams({
+      locale: tvarkaSharedData.localeIsoCode,
+      isHomePage: tvarkaSharedData.isHomePage,
+    });
+    tvarkaSharedData.productId &&
+      c.append("productId", tvarkaSharedData.productId),
+      tvarkaSharedData.collectionIds.length > 0 &&
+        c.append("collectionIds", tvarkaSharedData.collectionIds.join(","));
+    try {
+      let i = await fetch(
+        `/apps/tvarkasatc/themeextension/satcconfiguration?${c.toString()}`,
+        { method: "GET" }
+      );
+      if (!i.ok) return;
+      let s = await i.json();
+      s &&
+        ((e = s.satcSettings.designSettings),
+        (r = s.satcSettings.generalSettings),
+        (n = s.satcSettings.placementSettings),
+        (a = s.satcContent),
+        (o = s.settings),
+        (t = !0));
+    } catch (l) {}
+  }
+  async function V(t) {
+    if (!t) return !1;
+    try {
+      let e = await fetch(`/products/${t}.js`);
+      if (!e.ok) return !1;
+      let a = await e.json();
+      Object.assign(tvarkaSharedData, {
+        productId: a.id.toString(),
+        productTitle: a.title,
+        options: a.options,
+        defaultProductImage: a.featured_image,
+        productVariants: a.variants,
+        selectedOrFirstAvailableVariantId:
+          a.variants.find((t) => t.available)?.id || a.variants[0]?.id,
+        collectionIds: [],
+      });
+    } catch (r) {
+      return !1;
+    }
+    return !0;
+  }
+  function R(t, e, a, r, n, o = !1) {
+    let c = document.createElement("select");
+    (c.id = t),
+      (c.name = `tvarka-satc-option-${e}`),
+      (c.className = `tvarka-satc__selector tvarka-satc__option-selector tvarka-satc__u-cursor-pointer tvarka-satc__u-inherit-font-family${
+        o ? " tvarka-satc__option-selector--spaced" : ""
+      }`);
+    let i = [...new Set(a.map((t) => t[`option${r + 1}`]))],
+      s = a.find((t) => t.id.toString() === n.toString()),
+      l = s ? s[`option${r + 1}`] : i[0];
+    return (
+      i.forEach((t) => {
+        let e = document.createElement("option");
+        (e.value = t), (e.text = t), (e.selected = t === l), c.appendChild(e);
+      }),
+      c
+    );
+  }
+  async function M(t, e) {
+    if (t)
+      try {
+        await fetch("/apps/tvarkasatc/ThemeExtension/AddToCartButtonClick", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            quantity: e,
+            itemPriceInCents: t.price,
+            currency: tvarkaSharedData.currencyIsoCode,
+          }),
+        });
+      } catch (a) {}
+  }
+})();
