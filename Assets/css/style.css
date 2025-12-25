@@ -188,3 +188,132 @@ width: 100%;
   text-decoration: line-through;
   color: #777;
 }
+
+/* Curated nails for every chapter */
+.nail-collection {
+  text-align: center;
+  padding: 50px 20px;
+  font-family: sans-serif;
+}
+
+.nail-collection h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.nail-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nail-card {
+  cursor: pointer;      
+  transition: transform 0.2s;
+  text-align: center;
+  padding: 10px;
+  width: 180px;
+}
+
+.nail-card:hover {
+  transform: scale(1.05);
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block; 
+}
+
+.nail-card img {
+  width: 100%;
+  border-radius: 15px;
+  display: block;
+}
+.nail-card p {
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/*Footer Section */
+.footer {
+  background-color: #fff;
+  color: #000;
+  font-family: Arial, sans-serif;
+  padding: 40px 20px 20px 20px;
+  box-sizing: border-box;
+}
+.logo {
+    color: #ff69b4;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.footer-column {
+  flex: 1 1 220px;
+}
+
+.footer-column h3 {
+  margin-bottom: 15px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.footer-column input {
+  padding: 8px;
+  margin-top: 10px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.footer-column button {
+  display: block;
+  margin-top: 10px;
+  background-color: #ff69b4;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.social-icons {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.footer-bottom {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.partners span {
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+
